@@ -6,7 +6,6 @@ import './CourseInput.css';
 const CourseInput = props => {
   const [enteredValue, setEnteredValue] = useState('');
   const [isValid, setIsValid] = useState(true);
-  const dynamicValidationColor = (firstColor, secondColor) => !isValid ? firstColor : secondColor;
 
   const goalInputChangeHandler = event => {
     if(event.target.value.trim().length > 0) {
@@ -28,12 +27,9 @@ const CourseInput = props => {
 
   return (
     <form onSubmit={formSubmitHandler}>
-      <div className="form-control">
-        <label style={{ color: dynamicValidationColor('red', 'black') }}>Course Goal</label>
-        <input style={{ borderColor: dynamicValidationColor('red', '#eee'), 
-                        background: dynamicValidationColor('salmon', 'transparent')}} 
-                        type="text" 
-                        onChange={goalInputChangeHandler} />
+      <div className={`form-control ${!isValid ? 'invalid' : ''}`}>
+        <label>Course Goal</label>
+        <input type="text" onChange={goalInputChangeHandler} />
       </div>
       <Button type="submit">Add Goal</Button>
     </form>
